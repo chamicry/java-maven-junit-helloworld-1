@@ -37,10 +37,6 @@ pipeline {
                                 $class: 'CheckStyle',
                                 pattern: "**/target/*.xml"
                         ])
-                        step([
-                                $class: 'SpotBugs',
-                                pattern: "**/target/*.xml"
-                        ])   
                     }
   
                 }
