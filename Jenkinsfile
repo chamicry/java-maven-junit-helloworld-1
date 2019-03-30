@@ -33,10 +33,18 @@ pipeline {
                 script {
                     dir('.') {
                         sh 'echo "Analysis stage"'
+                        sh '${M2_HOME}/bin/mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs spotbugs:spotbugs'
                     }
+                }
+            }
+            post {
+                always {
+                    junit testResults: '**/target/surefire-reports/TEST-*.xml'
+                    recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc()]
+                    recordIssues enabledForFailure: true, tool: checkStyle()
+                    recordIssues enabledForFailure: true, tool: spotBugs()
                 }
             }
         }
     }
-
 }
