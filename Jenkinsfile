@@ -34,12 +34,12 @@ pipeline {
                     dir('.') {
                         sh 'echo "Analysis stage"'
                         step([
-                                $class: 'CheckStylePublisher',
-                                pattern: "checkstyle/*.xml"
+                                $class: 'CheckStyle',
+                                pattern: "**/target/*.xml"
                         ])
                         step([
-                                $class: 'SpotBugsPublisher',
-                                pattern: "spotbugs/*.xml"
+                                $class: 'SpotBugs',
+                                pattern: "**/target/*.xml"
                         ])   
                     }
   
