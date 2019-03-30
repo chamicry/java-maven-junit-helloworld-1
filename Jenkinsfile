@@ -33,8 +33,16 @@ pipeline {
                 script {
                     dir('.') {
                         sh 'echo "Analysis stage"'
-                        sh './gradlew clean test checkstyleMain spotbugsMain'
+                        step([
+                                $class: 'CheckStylePublisher',
+                                pattern: "checkstyle/*.xml"
+                        ])
+                        step([
+                                $class: 'SpotBugsPublisher',
+                                pattern: "spotbugs/*.xml"
+                        ])   
                     }
+  
                 }
             }
             post {
