@@ -23,7 +23,6 @@ pipeline {
                         sh 'set HTTP_PROXY=$HTTP_PROXY'
                         sh 'set HTTPS_PROXY=$HTTP_PROXY'
                         sh 'mvn package site --debug'
-                        sh 'mvn clean test checkstyle:checkstyle'
                     }
                 }
             }
@@ -32,11 +31,8 @@ pipeline {
             steps {
                 script {
                     dir('.') {
-                        sh 'echo "Analysis stage"'
-                        step([
-                                $class: 'CheckStyle',
-                                pattern: "**/checkstyle-result.xml"
-                        ])
+                        sh 'mvn clean test checkstyleMain'
+
                     }
   
                 }
@@ -44,8 +40,8 @@ pipeline {
             post {
                 always {
                     junit testResults: '**/target/surefire-reports/TEST-*.xml'
+                    recordIssues tool: checkStyle(pattern: "**/checkstyle/*.xml")
                     recordIssues enabledForFailure: true, tool: checkStyle()
-                    recordIssues enabledForFailure: true, tool: spotBugs()
                 }
             }
         }
