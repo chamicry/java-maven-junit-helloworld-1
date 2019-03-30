@@ -35,7 +35,7 @@ pipeline {
                         sh 'echo "Analysis stage"'
                         step([
                                 $class: 'CheckStyle',
-                                pattern: "**/target/*.xml"
+                                pattern: "**/checkstyle-result.xml"
                         ])
                     }
   
