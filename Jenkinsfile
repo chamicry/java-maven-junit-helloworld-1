@@ -26,11 +26,11 @@ pipeline {
                     }
                 }
             }
-            post {
-                success {
-                    recordIssues tool: checkStyle(pattern: "target/checkstyle-result.xml")
-                }
-            }
+        }
+    }   
+     post {
+        success {
+            recordIssues tool: checkStyle(pattern: "target/checkstyle-result.xml")
         }
     }
 }
