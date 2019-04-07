@@ -29,7 +29,7 @@ pipeline {
         }
             post {
                 success {
-                    recordIssues tool: checkStyle(pattern: "build/checkstyle/*.xml")
+                    recordIssues tool: checkStyle(pattern: "target/checkstyle-result.xml")
                 }
             }
         }
