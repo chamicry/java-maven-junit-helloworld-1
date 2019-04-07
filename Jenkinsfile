@@ -24,7 +24,8 @@ pipeline {
                         sh 'set HTTPS_PROXY=$HTTP_PROXY'
                         sh 'mvn package site --debug'
                     }
-                }
+                },
+                stepcounter settings: [[encoding: 'UTF-8', filePattern: 'src/main/**/*.java', key: 'source'], [encoding: 'UTF-8', filePattern: 'src/test/**/*.java', key: 'test']]
             }
         }
     }   
