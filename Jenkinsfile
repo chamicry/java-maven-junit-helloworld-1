@@ -27,21 +27,9 @@ pipeline {
                 }
             }
         }
-        stage('Analysis') {
-            steps {
-                script {
-                    dir('.') {
-                        sh 'mvn clean test checkstyleMain'
-
-                    }
-  
-                }
-            }
             post {
-                always {
-                    junit testResults: '**/target/surefire-reports/TEST-*.xml'
-                    recordIssues tool: checkStyle(pattern: "**/checkstyle/*.xml")
-                    recordIssues enabledForFailure: true, tool: checkStyle()
+                success {
+                    recordIssues tool: checkStyle(pattern: "build/checkstyle/*.xml")
                 }
             }
         }
