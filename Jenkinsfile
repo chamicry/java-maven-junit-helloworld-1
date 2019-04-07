@@ -31,6 +31,7 @@ pipeline {
      post {
         success {
             recordIssues tool: checkStyle(pattern: "target/checkstyle-result.xml")
+            recordIssues tool: spotbugs(pattern: "target/spotbugs-result.xml")
         }
     }
 }
