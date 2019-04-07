@@ -26,6 +26,10 @@ pipeline {
                     }
                 }
                 stepcounter settings: [[encoding: 'UTF-8', filePattern: 'src/main/**/*.java', key: 'source'], [encoding: 'UTF-8', filePattern: 'src/test/**/*.java', key: 'test']]
+                step([
+                    $class: 'JacocoPublisher',
+                    execPattern: "${jacocoReportDir}/*.exec"
+                ])
             }
         }
     }   
